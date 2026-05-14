@@ -10,14 +10,14 @@ const allSkills = Object.values(SKILLS);
 const SkillsSection = () => {
   return (
     <SectionWrapper id="skills" className="w-full min-h-[150vh]">
-      <SectionHeader id="skills" title="核心技能" />
+      <SectionHeader id="skills" title="专业技能" />
 
       <motion.p
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="text-center text-sm text-muted-foreground/60 mt-2 tracking-wide"
+        className="text-center text-sm text-muted-foreground/60 -mt-1 mb-6 tracking-wide"
       >
         按下键盘，查看技能详情
       </motion.p>
