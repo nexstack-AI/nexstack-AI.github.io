@@ -12,6 +12,16 @@ const SkillsSection = () => {
     <SectionWrapper id="skills" className="w-full min-h-[150vh]">
       <SectionHeader id="skills" title="核心技能" />
 
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="text-center text-sm text-muted-foreground/60 mt-2 tracking-wide"
+      >
+        按下键盘，查看技能详情
+      </motion.p>
+
       <div className="relative z-10 flex justify-end px-4 md:px-8 pt-8 md:pt-12">
         <motion.div
           initial={{ opacity: 0, x: 40 }}
