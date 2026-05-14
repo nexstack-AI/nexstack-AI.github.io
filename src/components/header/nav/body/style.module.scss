@@ -6,17 +6,19 @@
   a {
     color: hsl(var(--foreground));
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   p {
     margin: 0px;
     display: flex;
     overflow: hidden;
-    font-size: 32px;
-    padding-right: 30px;
-    padding-top: 10px;
-    font-weight: 350;
+    font-size: 18px;
+    padding: 20px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease;
+    text-align: center;
   }
 }
 
@@ -26,7 +28,7 @@
     margin-top: 80px;
 
     p {
-      font-size: 5vw;
+      font-size: 22px;
       padding-right: 2vw;
     }
   }

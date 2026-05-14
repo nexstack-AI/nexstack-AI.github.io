@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         url: config.ogImg,
         width: 800,
         height: 600,
-        alt: "Portfolio preview",
+        alt: "个人作品集预览",
       },
     ],
     type: "website",
@@ -58,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={[inter.variable, archivoBlack.variable, "font-display"].join(" ")} suppressHydrationWarning>
+    <html lang="zh-CN" className={[inter.variable, archivoBlack.variable, "font-display"].join(" ")} suppressHydrationWarning>
       <head>
         <Script
           defer

@@ -11,9 +11,9 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 const formSchema = z.object({
-  fullName: z.string().min(2, "Full name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  fullName: z.string().min(2, "姓名至少需要 2 个字符"),
+  email: z.string().email("请输入有效的邮箱地址"),
+  message: z.string().min(10, "留言内容至少需要 10 个字符"),
 });
 
 type FieldErrors = Partial<Record<keyof z.infer<typeof formSchema>, string>>;
@@ -55,8 +55,8 @@ const ContactForm = () => {
         throw new Error(data.error || `Request failed (${res.status})`);
       }
       toast({
-        title: "Thank you!",
-        description: "I'll get back to you as soon as possible.",
+        title: "感谢留言！",
+        description: "我会尽快回复您。",
         variant: "default",
         className: cn("top-0 mx-auto flex fixed md:top-4 md:right-4"),
       });
@@ -70,8 +70,8 @@ const ContactForm = () => {
       }, 1000);
     } catch (err) {
       toast({
-        title: "Error",
-        description: "Something went wrong! Please try again.",
+        title: "发送失败",
+        description: "出了点问题，请重试。",
         className: cn(
           "top-0 w-full flex justify-center fixed md:max-w-7xl md:top-4 md:right-4"
         ),
@@ -84,10 +84,10 @@ const ContactForm = () => {
     <form className="min-w-7xl mx-auto sm:mt-4" onSubmit={handleSubmit} aria-busy={loading}>
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
         <LabelInputContainer>
-          <Label htmlFor="fullname">Full name</Label>
+          <Label htmlFor="fullname">姓名</Label>
           <Input
             id="fullname"
-            placeholder="Your Name"
+            placeholder="您的姓名"
             type="text"
             value={fullName}
             onChange={(e) => { setFullName(e.target.value); setErrors((p) => ({ ...p, fullName: undefined })); }}
@@ -95,7 +95,7 @@ const ContactForm = () => {
           {errors.fullName && <p className="text-sm text-red-500">{errors.fullName}</p>}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
+          <Label htmlFor="email">邮箱地址</Label>
           <Input
             id="email"
             placeholder="you@example.com"
@@ -107,9 +107,9 @@ const ContactForm = () => {
         </LabelInputContainer>
       </div>
       <div className="grid w-full gap-1.5 mb-4">
-        <Label htmlFor="content">Your Message</Label>
+        <Label htmlFor="content">留言内容</Label>
         <Textarea
-          placeholder="Tell me about about your project,"
+          placeholder="请描述您的项目需求，"
           id="content"
           value={message}
           onChange={(e) => { setMessage(e.target.value); setErrors((p) => ({ ...p, message: undefined })); }}
@@ -117,6 +117,7 @@ const ContactForm = () => {
         {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
         <p className="text-sm text-muted-foreground">
           I&apos;ll never share your data with anyone else. Pinky promise!
+          您的信息不会被分享给任何人，我保证！
         </p>
       </div>
       <Button
@@ -127,11 +128,12 @@ const ContactForm = () => {
         {loading ? (
           <div className="flex items-center justify-center">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            <p>Please wait</p>
+            <p>请稍候</p>
           </div>
         ) : (
           <div className="flex items-center justify-center">
             Send Message <ChevronRight className="w-4 h-4 ml-4" />
+            发送留言 <ChevronRight className="w-4 h-4 ml-4" />
           </div>
         )}
         <BottomGradient />

@@ -1,45 +1,40 @@
 const config = {
-  title: "Naresh Khatri | Full-Stack Developer",
+  title: "nexstack-AI | 10年+ 经验 · Taro · React · TypeScript",
   description: {
-    long: "Explore the portfolio of Naresh, a full-stack developer and creative technologist specializing in interactive web experiences, 3D animations, and innovative projects. Discover my latest work, including Coding Ducks, The Booking Desk, Ghostchat, and more. Let's build something amazing together!",
+    long: "nexstack-AI 的个人作品集，13年工作经验，10年+前端开发经验。精通 Taro + React + TypeScript 技术栈，擅长自定义 Hooks 封装、复杂业务逻辑抽象。主导 30+ 大型项目。",
     short:
-      "Discover the portfolio of Naresh, a full-stack developer creating interactive web experiences and innovative projects.",
+      "nexstack-AI · 10年+ 经验 · Taro · React · TypeScript · ECharts",
   },
   keywords: [
-    "Naresh",
-    "portfolio",
-    "full-stack developer",
-    "creative technologist",
-    "web development",
-    "3D animations",
-    "interactive websites",
-    "Coding Ducks",
-    "The Booking Desk",
-    "Ghostchat",
-    "web design",
-    "GSAP",
+    "nexstack-AI",
+    "前端开发",
+    "个人主页",
     "React",
-    "Next.js",
-    "Spline",
-    "Framer Motion",
+    "TypeScript",
+    "Taro",
+    "ECharts",
+    "小程序",
+    "数据可视化",
+    "三端合一",
+    "Vite",
+    "Webpack",
   ],
-  author: "Naresh Khatri",
-  email: "naresh.khatri2345@gmail.com",
-  site: "https://nareshkhatri.site",
+  author: "nexstack-AI",
+  email: "462926191@qq.com",
+  site: "https://nexstack-ai.github.io",
 
-  // for github stars button
-  githubUsername: "naresh-khatri",
+  githubUsername: "nexstack-AI",
   githubRepo: "3d-portfolio",
 
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";
   },
   social: {
-    twitter: "https://x.com/nothotchaddi",
-    linkedin: "https://www.linkedin.com/in/naresh-khatri/",
-    instagram: "https://www.instagram.com/hotchaddi",
-    facebook: "https://www.facebook.com/HotChaddi/",
-    github: "https://github.com/Naresh-Khatri",
+    twitter: "",
+    linkedin: "",
+    instagram: "",
+    facebook: "",
+    github: "https://github.com/nexstack-AI",
   },
 };
 export { config };

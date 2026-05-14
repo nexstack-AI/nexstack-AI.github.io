@@ -20,7 +20,7 @@ import SectionWrapper from "../ui/section-wrapper";
 const ProjectsSection = () => {
   return (
     <SectionWrapper id="projects" className="max-w-7xl mx-auto md:h-[130vh]">
-      <SectionHeader id="projects" title="Projects" />
+      <SectionHeader id="projects" title="项目经历" />
       <div className="grid grid-cols-1 md:grid-cols-3">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
@@ -77,11 +77,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
                     className="text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
                   >
                     Source
+                  源码
                   </Link>
                 )}
                 <Link href={project.live} target="_blank">
                   <button className="group flex items-center gap-2 bg-primary text-primary-foreground text-sm font-medium px-4 py-1.5 rounded-full hover:bg-primary/80 transition-colors">
                     Visit
+                    查看
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </button>
                 </Link>
@@ -102,7 +104,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
                 {project.skills.frontend?.length > 0 && (
                   <div className="flex flex-col items-center md:items-start gap-2">
                     <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
-                      Frontend
+                      前端
                     </span>
                     <FloatingDock items={project.skills.frontend} />
                   </div>
@@ -110,7 +112,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
                 {project.skills.backend?.length > 0 && (
                   <div className="flex flex-col items-center md:items-start gap-2">
                     <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
-                      Backend
+                      后端
                     </span>
                     <FloatingDock items={project.skills.backend} />
                   </div>

@@ -14,8 +14,8 @@ const ExperienceSection = () => {
       <div className="w-full max-w-4xl px-4 md:px-8 mx-auto">
         <SectionHeader
           id="experience"
-          title="Experience"
-          desc="My professional journey."
+          title="工作经历"
+          desc="我的职业历程"
           className="mb-12 md:mb-20 mt-0"
         />
 

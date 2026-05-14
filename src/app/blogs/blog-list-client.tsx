@@ -25,10 +25,10 @@ function readTime(wordCount: number) {
 
 function formatDate(dateStr: string) {
   const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
+  return date.toLocaleDateString("zh-CN", {
     year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
@@ -56,14 +56,16 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
             <div className="h-px flex-1 max-w-[60px] bg-[hsl(20,100%,70%)]" />
             <span className="text-[hsl(20,100%,70%)] text-sm font-medium tracking-[0.2em] uppercase font-sans">
               Blog
+              博客
             </span>
           </div>
           <h1 className="font-display text-3xl md:text-5xl leading-[0.95] tracking-tight">
             Thoughts &<br />
-            <span className="text-[hsl(20,100%,70%)]">Dispatches</span>
+            <span className="text-[hsl(20,100%,70%)]">文章</span>
           </h1>
           <p className="mt-6 text-muted-foreground text-lg max-w-lg leading-relaxed font-sans">
             Notes on building things, breaking things, and occasionally writing about it.
+            技术探索、踩坑记录，偶尔写点东西。
           </p>
         </motion.div>
 
@@ -84,6 +86,7 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
                   <div className="flex items-center gap-4 mb-6 text-sm text-muted-foreground font-sans">
                     <span className="text-[hsl(20,100%,70%)] font-medium tracking-[0.15em] uppercase text-xs">
                       Featured
+                      精选
                     </span>
                     <span className="h-1 w-1 rounded-full bg-muted-foreground/50" />
                     <span className="flex items-center gap-1.5">
@@ -92,7 +95,7 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
                     </span>
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5" />
-                      {readTime(featured.wordCount)} min read
+                      {readTime(featured.wordCount)} 分钟阅读
                     </span>
                   </div>
 
@@ -118,6 +121,7 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-[hsl(20,100%,70%)] transition-colors font-sans">
                       Read article
+                      阅读文章
                       <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </div>
                   </div>
@@ -160,7 +164,7 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
                     <span className="h-1 w-1 rounded-full bg-muted-foreground/50" />
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3 h-3" />
-                      {readTime(post.wordCount)} min
+                      {readTime(post.wordCount)} 分钟
                     </span>
                   </div>
 
@@ -200,7 +204,7 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
             transition={{ delay: 0.3 }}
             className="text-center py-24"
           >
-            <p className="text-muted-foreground text-lg font-sans">No posts yet. Check back soon.</p>
+            <p className="text-muted-foreground text-lg font-sans">暂无文章，敬请期待。</p>
           </motion.div>
         )}
       </div>

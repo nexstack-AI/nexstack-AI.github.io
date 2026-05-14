@@ -55,7 +55,7 @@ export default function Body({
   };
 
   return (
-    <div className={cn(styles.body, "flex flex-col items-end md:flex-row")}>
+    <div className={cn(styles.body, "flex flex-col items-center md:flex-row md:justify-center")}>
       <FunnyThemeToggle className="w-6 h-6 mr-6 flex md:hidden" />
       {links.map((link, index) => {
         const { title, href, target } = link;
@@ -69,8 +69,9 @@ export default function Body({
           >
             <motion.p
               className={cn(
-                "rounded-lg",
-                currentHref !== href ? "text-muted-foreground" : "underline"
+                "relative rounded-lg text-sm font-semibold tracking-wide transition-colors duration-300",
+                "group",
+                currentHref !== href ? "text-muted-foreground hover:text-orange-500" : "text-orange-500"
               )}
               onClick={() => setIsActive(false)}
               onMouseOver={() => setSelectedLink({ isActive: true, index })}
@@ -82,7 +83,8 @@ export default function Body({
                   : "closed"
               }
             >
-              {getChars(title)}
+              {title}
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-orange-400 to-orange-600 rounded-full transition-all duration-500 ease-out group-hover:w-full" />
             </motion.p>
           </Link>
         );

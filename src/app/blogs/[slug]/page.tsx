@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getBlogPost(slug);
   return {
-    title: `${post.metadata.title} | Portfolio`,
+    title: `${post.metadata.title} | 个人作品集`,
     description: post.metadata.summary,
   };
 }
@@ -30,11 +30,10 @@ function estimateReadTime(content: string) {
 
 function formatDate(dateStr: string) {
   const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    weekday: "long",
+  return date.toLocaleDateString("zh-CN", {
+    year: "numeric",
     month: "long",
     day: "numeric",
-    year: "numeric",
   });
 }
 
@@ -133,6 +132,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           >
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             All posts
+            全部文章
           </Link>
         </RevealAnimation>
 
@@ -173,7 +173,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               </div>
               <div className="flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5" />
-                {readTime} min read
+                {readTime} 分钟阅读
               </div>
             </div>
           </header>
@@ -195,6 +195,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             >
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
               Back to all posts
+              返回全部文章
             </Link>
           </div>
         </RevealAnimation>

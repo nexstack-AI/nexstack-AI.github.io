@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
+import { motion } from "motion/react";
 import { Button } from "../ui/button";
 import { File, Github, Linkedin } from "lucide-react";
 import {
@@ -40,7 +41,7 @@ const HeroSection = () => {
                       "cursor-default font-display sm:text-xl md:text-xl whitespace-nowrap bg-clip-text "
                     )}
                   >
-                    Hi, I am
+                    Hi, 我是
                     <br className="md:hidden" />
                   </p>
                 </BlurIn>
@@ -50,14 +51,28 @@ const HeroSection = () => {
                     <TooltipTrigger asChild>
                       <h1
                         className={cn(
-                          "-ml-[6px] leading-none font-thin text-transparent text-slate-800 text-left",
-                          "font-thin text-7xl md:text-7xl lg:text-8xl xl:text-9xl",
-                          "cursor-default text-edge-outline font-display "
+                          "-ml-[6px] leading-none font-bold text-transparent text-slate-800 text-left",
+                          "text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]",
+                          "cursor-default text-edge-outline font-display tracking-tight"
                         )}
                       >
-                        {config.author.split(" ")[0]}
-                        <br className="md:block hiidden" />
-                        {config.author.split(" ")[1]}
+                        <motion.span
+                          className="inline-block mr-2 md:mr-4 text-orange-500"
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            rotate: [0, 15, -15, 0],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            repeatDelay: 1.5,
+                          }}
+                        >
+                          ◆
+                        </motion.span>
+                        {config.author}
+                        <br className="md:block hidden" />
                       </h1>
                     </TooltipTrigger>
                     <TooltipContent
@@ -65,6 +80,7 @@ const HeroSection = () => {
                       className="dark:bg-white dark:text-black"
                     >
                       theres something waiting for you in devtools
+                      开发者工具有惊喜等着你
                     </TooltipContent>
                   </Tooltip>
                 </BlurIn>
@@ -77,24 +93,29 @@ const HeroSection = () => {
                     )}
                   >
                     A Full Stack Web Developer
+                    <br />
+                    <span className="text-sm text-orange-500">全栈 Web 开发者 · 10年+ 经验</span>
                   </p>
                 </BlurIn>
               </div>
+              {/* Stats ribbon */}
+              <BlurIn delay={1.5}>
+                <div className="flex gap-4 md:gap-6 mt-4 flex-wrap">
+                  {[
+                    { num: "30+", label: "大型项目" },
+                    { num: "10年+", label: "前端经验" },
+                    { num: "Taro", label: "核心框架" },
+                    { num: "三端", label: "统一交付" },
+                  ].map((stat) => (
+                    <div key={stat.label} className="flex flex-col items-start">
+                      <span className="text-lg md:text-xl font-bold text-orange-500">{stat.num}</span>
+                      <span className="text-[10px] md:text-xs text-muted-foreground">{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </BlurIn>
               <div className="mt-8 flex flex-col gap-3 w-fit">
-                <Link
-                  href={
-                    "https://drive.google.com/file/d/1MTSsUA8V7Po2AsNXT8kZ5sLOpzC8l7qm/view?usp=sharing"
-                  }
-                  target="_blank"
-                  className="flex-1"
-                >
-                  <BoxReveal delay={2} width="100%" >
-                    <Button className="flex items-center gap-2 w-full">
-                      <File size={24} />
-                      <p>Resume</p>
-                    </Button>
-                  </BoxReveal>
-                </Link>
+                {/* 简历暂时隐藏 */}
                 <div className="md:self-start flex gap-3">
                   <Tooltip delayDuration={300}>
                     <TooltipTrigger asChild>
@@ -104,11 +125,12 @@ const HeroSection = () => {
                           className="block w-full overflow-hidden"
                         >
                           Hire Me
+                          联系我
                         </Button>
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent side="bottom">
-                      <p>pls 🥹 🙏</p>
+                      <p>期待与您合作 🤝</p>
                     </TooltipContent>
                   </Tooltip>
                   <div className="flex items-center h-full gap-2">
