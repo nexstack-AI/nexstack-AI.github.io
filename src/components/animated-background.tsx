@@ -33,6 +33,7 @@ const AnimatedBackground = () => {
   const keycapAnimationsRef = useRef<{ start: () => void; stop: () => void }>(null);
 
   const [keyboardRevealed, setKeyboardRevealed] = useState(false);
+  const [splineLoadFailed, setSplineLoadFailed] = useState(false);
   const router = useRouter();
 
   // --- Event Handlers ---
@@ -274,6 +275,13 @@ const AnimatedBackground = () => {
     });
   };
 
+  // Detect Spline loading timeout — when WASM fetch fails due to proxy, show fallback
+  useEffect(() => {
+    if (splineApp || splineLoadFailed) return;
+    const timer = setTimeout(() => setSplineLoadFailed(true), 10000);
+    return () => clearTimeout(timer);
+  }, [splineApp, splineLoadFailed]);
+
   // --- Effects ---
 
   // Initialize GSAP and Spline interactions
@@ -425,17 +433,25 @@ const AnimatedBackground = () => {
   }, [splineApp, isLoading, activeSection]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Spline
-        className="w-full h-full fixed"
-        ref={splineContainer}
-        onLoad={(app: Application) => {
-          setSplineApp(app);
-          bypassLoading();
-        }}
-        scene="/assets/skills-keyboard.spline"
-      />
-    </Suspense>
+    <>
+      {/* Fallback gradient background when Spline fails to load (e.g. proxy blocks WASM) */}
+      {splineLoadFailed && (
+        <div className="w-full h-full fixed bg-gradient-to-br from-gray-900 via-purple-900/60 to-gray-800" />
+      )}
+      <Suspense fallback={<div className="w-full h-full fixed bg-gradient-to-br from-gray-900 via-purple-900/60 to-gray-800" />}>
+        {!splineLoadFailed && (
+          <Spline
+            className="w-full h-full fixed"
+            ref={splineContainer}
+            onLoad={(app: Application) => {
+              setSplineApp(app);
+              bypassLoading();
+            }}
+            scene="/assets/skills-keyboard.spline"
+          />
+        )}
+      </Suspense>
+    </>
   );
 };
 
