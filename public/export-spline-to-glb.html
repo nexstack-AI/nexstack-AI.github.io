@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Spline to GLB Export</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #111; color: #fff; }
+    #controls {
+      position: fixed; top: 16px; right: 16px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    button {
+      padding: 10px 20px; border: none; border-radius: 8px;
+      background: #6366f1; color: #fff; font-weight: 600;
+      cursor: pointer; font-size: 14px;
+    }
+    button:hover { background: #4f46e5; }
+    button:disabled { background: #374151; cursor: not-allowed; }
+    #status {
+      position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+      background: #1f2937; padding: 8px 16px; border-radius: 8px;
+      font-size: 13px; color: #9ca3af; z-index: 9999; max-width: 80vw;
+      text-align: center;
+    }
+    #error-log {
+      position: fixed; bottom: 60px; left: 16px; right: 16px;
+      background: rgba(0,0,0,0.85); padding: 12px; border-radius: 8px;
+      font-size: 12px; color: #f87171; font-family: monospace;
+      white-space: pre-wrap; display: none; max-height: 200px; overflow: auto; z-index: 9999;
+    }
+    canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <button id="exportBtn" disabled>Export GLB</button>
+    <button id="logSceneBtn" disabled>Log Scene Tree</button>
+  </div>
+  <div id="status">Loading Spline runtime…</div>
+  <div id="error-log"></div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+
+    const statusEl = document.getElementById('status');
+    const errorLog = document.getElementById('error-log');
+    const exportBtn = document.getElementById('exportBtn');
+    const logBtn = document.getElementById('logSceneBtn');
+
+    let splineApp = null;
+    let threeScene = null;
+
+    function setStatus(msg, isError) {
+      console.log(isError ? '[ERROR]' : '[INFO]', msg);
+      statusEl.textContent = msg;
+      if (isError) {
+        errorLog.style.display = 'block';
+        errorLog.textContent += msg + '\n';
+      }
+    }
+
+    // Load Spline runtime from CDN as a script tag (it creates window.__splineRuntimeApp helper)
+    async function loadSplineRuntime() {
+      setStatus('Loading Spline runtime from CDN…');
+      const mod = await import('https://cdn.jsdelivr.net/npm/@splinetool/runtime@1.12.0/build/runtime.js');
+      return mod.Application;
+    }
+
+    function extractThreeScene(app) {
+      // Try known Spline v4 internal paths
+      if (app._scene?.isScene) return app._scene;
+      if (app.scene) {
+        if (app.scene.scene?.isScene) return app.scene.scene;
+        if (app.scene.isScene) return app.scene;
+      }
+      // Fallback: scan for THREE.Scene
+      for (const key of Object.getOwnPropertyNames(app)) {
+        try {
+          const v = app[key];
+          if (v && v.isScene) return v;
+        } catch (e) { /* skip */ }
+      }
+      return null;
+    }
+
+    async function init() {
+      try {
+        const Application = await loadSplineRuntime();
+
+        setStatus('Creating Spline Application…');
+        const canvas = document.createElement('canvas');
+        canvas.id = 'spline-canvas';
+        document.body.appendChild(canvas);
+
+        splineApp = new Application(canvas);
+        // Wait a tick for internal init
+        await new Promise(r => setTimeout(r, 100));
+
+        setStatus('Loading skills-keyboard.spline (this may take several seconds)…');
+        await splineApp.load('/assets/skills-keyboard.spline');
+
+        // Wait for textures/models to settle
+        await new Promise(r => setTimeout(r, 2000));
+
+        threeScene = extractThreeScene(splineApp);
+
+        if (!threeScene) {
+          setStatus('ERROR: Cannot extract THREE.Scene from Spline Application. ' +
+            'Try dumping app keys in console via Log Scene Tree.', true);
+          return;
+        }
+
+        setStatus('Scene loaded successfully! ' + threeScene.children.length + ' children. Ready to export.');
+        exportBtn.disabled = false;
+        logBtn.disabled = false;
+      } catch (e) {
+        setStatus('Failed to load Spline: ' + e.message, true);
+        console.error(e);
+      }
+    }
+
+    function doExport() {
+      if (!threeScene) {
+        setStatus('No scene available. Wait for loading to complete.', true);
+        return;
+      }
+
+      setStatus('Exporting to GLB…');
+      try {
+        const exporter = new GLTFExporter();
+        exporter.parse(
+          threeScene,
+          (result) => {
+            if (result instanceof ArrayBuffer) {
+              const blob = new Blob([result], { type: 'application/octet-stream' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'skills-keyboard.glb';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              setTimeout(() => URL.revokeObjectURL(url), 10000);
+              setStatus('SUCCESS: skills-keyboard.glb downloaded!');
+            } else {
+              const json = JSON.stringify(result, null, 2);
+              const blob = new Blob([json], { type: 'application/json' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'skills-keyboard.gltf';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              setTimeout(() => URL.revokeObjectURL(url), 10000);
+              setStatus('SUCCESS: skills-keyboard.gltf downloaded (JSON format)');
+            }
+          },
+          (error) => {
+            setStatus('Export error: ' + (error.message || error), true);
+          },
+          {
+            binary: true,
+            includeCustomExtensions: false,
+            onlyVisible: false,
+            trs: true,
+          }
+        );
+      } catch (e) {
+        setStatus('Export failed: ' + e.message, true);
+      }
+    }
+
+    function logSceneTree() {
+      if (!threeScene) {
+        setStatus('No scene available. Wait for loading to complete.', true);
+        return;
+      }
+
+      setStatus('Scene has ' + threeScene.children.length + ' children. Check DevTools console (F12).');
+
+      function printTree(obj, indent) {
+        const name = obj.name || '(unnamed)';
+        const type = obj.type || obj.constructor?.name || '?';
+        const extra = obj.geometry ? ' [has geometry]' : '';
+        console.log(indent + type + ' "' + name + '"' + extra);
+        if (obj.children) {
+          for (const child of obj.children) {
+            printTree(child, indent + '  ');
+          }
+        }
+      }
+
+      console.log('=== SPLINE SCENE TREE ===');
+      printTree(threeScene, '');
+      console.log('=== END ===');
+      console.log('Spline Application keys:', Object.getOwnPropertyNames(splineApp));
+    }
+
+    exportBtn.addEventListener('click', doExport);
+    logBtn.addEventListener('click', logSceneTree);
+
+    init();
+  </script>
+</body>
+</html>
