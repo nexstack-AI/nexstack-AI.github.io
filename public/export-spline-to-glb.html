@@ -5,6 +5,19 @@
   <title>Spline to GLB Export</title>
   <style>
     body { margin: 0; font-family: system-ui, sans-serif; background: #111; color: #fff; }
+    #drop-zone {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 420px; max-width: 90vw; padding: 48px 32px;
+      border: 2px dashed #4b5563; border-radius: 16px;
+      text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s; z-index: 9998;
+    }
+    #drop-zone:hover, #drop-zone.drag-over {
+      border-color: #6366f1; background: rgba(99,102,241,0.08);
+    }
+    #drop-zone.hidden { display: none; }
+    #drop-zone h2 { margin: 0 0 8px; font-size: 18px; color: #d1d5db; }
+    #drop-zone p { margin: 0; font-size: 13px; color: #6b7280; }
     #controls {
       position: fixed; top: 16px; right: 16px; z-index: 9999;
       display: flex; flex-direction: column; gap: 8px;
@@ -32,11 +45,16 @@
   </style>
 </head>
 <body>
+  <div id="drop-zone">
+    <h2>Drop a .spline file here</h2>
+    <p>or click to select</p>
+    <input type="file" id="file-input" accept=".spline" style="display:none" />
+  </div>
   <div id="controls">
     <button id="exportBtn" disabled>Export GLB</button>
     <button id="logSceneBtn" disabled>Log Scene Tree</button>
   </div>
-  <div id="status">Loading Spline runtime…</div>
+  <div id="status">Drag & drop a .spline file to begin</div>
   <div id="error-log"></div>
 
   <script type="importmap">
@@ -52,6 +70,8 @@
     import * as THREE from 'three';
     import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
 
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
     const statusEl = document.getElementById('status');
     const errorLog = document.getElementById('error-log');
     const exportBtn = document.getElementById('exportBtn');
@@ -59,6 +79,7 @@
 
     let splineApp = null;
     let threeScene = null;
+    let Application = null;
 
     function setStatus(msg, isError) {
       console.log(isError ? '[ERROR]' : '[INFO]', msg);
@@ -69,148 +90,139 @@
       }
     }
 
-    // Load Spline runtime from CDN as a script tag (it creates window.__splineRuntimeApp helper)
     async function loadSplineRuntime() {
-      setStatus('Loading Spline runtime from CDN…');
+      setStatus('Loading Spline runtime…');
       const mod = await import('https://cdn.jsdelivr.net/npm/@splinetool/runtime@1.12.0/build/runtime.js');
       return mod.Application;
     }
 
     function extractThreeScene(app) {
-      // Try known Spline v4 internal paths
       if (app._scene?.isScene) return app._scene;
       if (app.scene) {
         if (app.scene.scene?.isScene) return app.scene.scene;
         if (app.scene.isScene) return app.scene;
       }
-      // Fallback: scan for THREE.Scene
       for (const key of Object.getOwnPropertyNames(app)) {
-        try {
-          const v = app[key];
-          if (v && v.isScene) return v;
-        } catch (e) { /* skip */ }
+        try { const v = app[key]; if (v && v.isScene) return v; } catch (e) {}
       }
       return null;
     }
 
-    async function init() {
-      try {
-        const Application = await loadSplineRuntime();
+    function resetApp() {
+      threeScene = null;
+      if (splineApp) {
+        try { splineApp.dispose(); } catch(e) {}
+        splineApp = null;
+      }
+      exportBtn.disabled = true;
+      logBtn.disabled = true;
+      dropZone.classList.remove('hidden');
+    }
 
-        setStatus('Creating Spline Application…');
-        const canvas = document.createElement('canvas');
-        canvas.id = 'spline-canvas';
-        document.body.appendChild(canvas);
+    async function loadFile(file) {
+      if (!Application) {
+        try { Application = await loadSplineRuntime(); } catch (e) {
+          setStatus('Failed to load Spline runtime: ' + e.message, true); return;
+        }
+      }
+
+      resetApp();
+
+      try {
+        const url = URL.createObjectURL(file);
+        setStatus('Parsing ' + file.name + '…');
+
+        const canvas = document.querySelector('canvas') || (() => {
+          const c = document.createElement('canvas'); c.id = 'spline-canvas';
+          document.body.appendChild(c); return c;
+        })();
 
         splineApp = new Application(canvas);
-        // Wait a tick for internal init
-        await new Promise(r => setTimeout(r, 100));
+        await splineApp.load(url);
+        URL.revokeObjectURL(url);
 
-        setStatus('Loading skills-keyboard.spline (this may take several seconds)…');
-        await splineApp.load('/assets/skills-keyboard.spline');
-
-        // Wait for textures/models to settle
+        // Allow textures/geometries to settle
         await new Promise(r => setTimeout(r, 2000));
 
         threeScene = extractThreeScene(splineApp);
 
         if (!threeScene) {
-          setStatus('ERROR: Cannot extract THREE.Scene from Spline Application. ' +
-            'Try dumping app keys in console via Log Scene Tree.', true);
+          setStatus('ERROR: Cannot extract THREE.Scene. Try Log Scene Tree to inspect.', true);
           return;
         }
 
-        setStatus('Scene loaded successfully! ' + threeScene.children.length + ' children. Ready to export.');
+        dropZone.classList.add('hidden');
+        setStatus('Loaded: ' + file.name + ' — ' + threeScene.children.length + ' children. Ready.');
         exportBtn.disabled = false;
         logBtn.disabled = false;
       } catch (e) {
-        setStatus('Failed to load Spline: ' + e.message, true);
+        setStatus('Failed to load ' + file.name + ': ' + e.message, true);
         console.error(e);
       }
     }
 
     function doExport() {
-      if (!threeScene) {
-        setStatus('No scene available. Wait for loading to complete.', true);
-        return;
-      }
-
+      if (!threeScene) { setStatus('No scene loaded.', true); return; }
       setStatus('Exporting to GLB…');
       try {
         const exporter = new GLTFExporter();
-        exporter.parse(
-          threeScene,
-          (result) => {
-            if (result instanceof ArrayBuffer) {
-              const blob = new Blob([result], { type: 'application/octet-stream' });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = 'skills-keyboard.glb';
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              setTimeout(() => URL.revokeObjectURL(url), 10000);
-              setStatus('SUCCESS: skills-keyboard.glb downloaded!');
-            } else {
-              const json = JSON.stringify(result, null, 2);
-              const blob = new Blob([json], { type: 'application/json' });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = 'skills-keyboard.gltf';
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              setTimeout(() => URL.revokeObjectURL(url), 10000);
-              setStatus('SUCCESS: skills-keyboard.gltf downloaded (JSON format)');
-            }
-          },
-          (error) => {
-            setStatus('Export error: ' + (error.message || error), true);
-          },
-          {
-            binary: true,
-            includeCustomExtensions: false,
-            onlyVisible: false,
-            trs: true,
+        exporter.parse(threeScene, (result) => {
+          if (result instanceof ArrayBuffer) {
+            const blob = new Blob([result], { type: 'application/octet-stream' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url;
+            a.download = 'model.glb'; a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            setStatus('SUCCESS: model.glb downloaded!');
+          } else {
+            const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url;
+            a.download = 'model.gltf'; a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            setStatus('SUCCESS: model.gltf downloaded (JSON)');
           }
-        );
+        }, (err) => {
+          setStatus('Export error: ' + (err.message || err), true);
+        }, { binary: true, includeCustomExtensions: false, onlyVisible: false, trs: true });
       } catch (e) {
         setStatus('Export failed: ' + e.message, true);
       }
     }
 
     function logSceneTree() {
-      if (!threeScene) {
-        setStatus('No scene available. Wait for loading to complete.', true);
-        return;
-      }
-
-      setStatus('Scene has ' + threeScene.children.length + ' children. Check DevTools console (F12).');
-
+      if (!threeScene) { setStatus('No scene loaded.', true); return; }
+      setStatus('Scene has ' + threeScene.children.length + ' children. Check F12 console.');
       function printTree(obj, indent) {
         const name = obj.name || '(unnamed)';
         const type = obj.type || obj.constructor?.name || '?';
-        const extra = obj.geometry ? ' [has geometry]' : '';
+        const extra = obj.geometry ? ' [geometry]' : '';
         console.log(indent + type + ' "' + name + '"' + extra);
-        if (obj.children) {
-          for (const child of obj.children) {
-            printTree(child, indent + '  ');
-          }
-        }
+        if (obj.children) for (const c of obj.children) printTree(c, indent + '  ');
       }
-
-      console.log('=== SPLINE SCENE TREE ===');
+      console.log('=== SCENE TREE ===');
       printTree(threeScene, '');
       console.log('=== END ===');
-      console.log('Spline Application keys:', Object.getOwnPropertyNames(splineApp));
+      console.log('App keys:', Object.getOwnPropertyNames(splineApp));
     }
+
+    // Drag & drop
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault(); dropZone.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file && file.name.endsWith('.spline')) loadFile(file);
+      else setStatus('Please drop a .spline file.', true);
+    });
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (file) loadFile(file);
+    });
 
     exportBtn.addEventListener('click', doExport);
     logBtn.addEventListener('click', logSceneTree);
-
-    init();
   </script>
 </body>
 </html>
