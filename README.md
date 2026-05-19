@@ -150,6 +150,10 @@ You must edit the original `.splinecode` file in Spline to add the keycap object
 
 Full details in [`KEYCAP-CUSTOMIZATION.md`](KEYCAP-CUSTOMIZATION.md).
 
+> **Contributing** — The keycap customization system is open for improvements. Feel free to submit pull requests for new icon designs, better rendering logic, or additional skill mappings. See the [GitHub repository](https://github.com/nexstack-AI/nexstack-AI.github.io) to get started.
+
+> **License** — This project is open source. If you use this portfolio or the keycap customization method, a credit or link back to the [original repo](https://github.com/nexstack-AI/nexstack-AI.github.io) would be much appreciated.
+
 ---
 
 ## 🔌 Realtime Features (Optional)
