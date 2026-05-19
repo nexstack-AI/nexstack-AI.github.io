@@ -4,9 +4,9 @@ A jaw-dropping developer portfolio packed with interactive 3D animations, butter
 
 > **Free to use!** This portfolio is open source. If you use it, a credit/link back would be really appreciated 🙏
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Naresh-Khatri/3d-portfolio)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nexstack-AI/nexstack-AI.github.io)
 
-![Portfolio Preview](https://github.com/Naresh-Khatri/Portfolio/blob/main/public/assets/projects-screenshots/portfolio/landing.png?raw=true)
+![Portfolio Preview](public/assets/projects-screenshots/portfolio/landing.png)
 
 ## ✨ Features
 
@@ -190,7 +190,7 @@ These features activate automatically when the `NEXT_PUBLIC_WS_URL` environment 
 
 ## 🚀 Deployment
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Naresh-Khatri/3d-portfolio)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nexstack-AI/nexstack-AI.github.io)
 
 This site is deployed on **Vercel**. To deploy your own:
 
@@ -198,8 +198,4 @@ This site is deployed on **Vercel**. To deploy your own:
 2. Connect the repository to [Vercel](https://vercel.com)
 3. Add your environment variables in the Vercel dashboard
 4. Vercel handles the rest — automatic deployments on every push
-
----
-
----
 
