@@ -204,6 +204,9 @@ export const SKILLS: Record<SkillNames, Skill> = {
 
 The `SkillNames` enum, `SKILLS` record, and the Spline keycap names must all stay in sync for the keyboard interactions to work correctly.
 
+> [!WARNING]
+> **This fork overrides Spline editor changes at runtime.** The code in `animated-background.tsx` injects custom SVG textures via JavaScript, which replaces whatever icons you set in the Spline editor. If you want to use the Spline editor method above, use the **original open-source repository** where this override does not exist: [Naresh-Khatri/3d-portfolio](https://github.com/Naresh-Khatri/3d-portfolio).
+
 ---
 
 ## 📦 Repository
