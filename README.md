@@ -209,5 +209,5 @@ The `SkillNames` enum, `SKILLS` record, and the Spline keycap names must all sta
 ## 📦 Repository
 
 - **本仓库** — [nexstack-AI/nexstack-AI.github.io](https://github.com/nexstack-AI/nexstack-AI.github.io)（通过代码实现自定义键帽，更新了技能标签和图标）
-- **原仓库地址** — [Naresh-Khatri/3d-portfolio](https://github.com/Naresh-Khatri/3d-portfolio)（基于样条曲线的原始方法，无自定义键帽颜色和图标的更换）
+- **原仓库地址** — [Naresh-Khatri/3d-portfolio](https://github.com/Naresh-Khatri/3d-portfolio)（基于样条曲线的原始方法无自定义键帽颜色和图标的更换）
 
