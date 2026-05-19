@@ -43,8 +43,8 @@ A jaw-dropping developer portfolio packed with interactive 3D animations, butter
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/Naresh-Khatri/3d-portfolio.git
-    cd 3d-portfolio
+    git clone https://github.com/nexstack-AI/nexstack-AI.github.io.git
+    cd nexstack-AI.github.io
     ```
 
 2. **Install dependencies:**
@@ -142,6 +142,34 @@ export const SKILLS: Record<SkillNames, Skill> = {
 
 The `SkillNames` enum, `SKILLS` record, and the Spline keycap names must all stay in sync for the keyboard interactions to work correctly.
 
+### 🎨 Alternative: Custom Keycap Icons & Colors (No Spline Membership Required)
+
+If you don't have a Spline membership or prefer not to edit the `.splinecode` file, you can customize keycap icons and colors entirely in code:
+
+**How it works** — The app injects custom SVG icons onto keycap surfaces at runtime by swapping texture data inside Spline's internal Three.js `NodeMaterial` uniforms. No Spline re-export needed.
+
+**Files you need:**
+
+| File | Purpose |
+|---|---|
+| `public/icons-keyboard/` | 29 SVG icons (one per skill). Replace any `.svg` to change its keycap icon. |
+| `src/data/constants.ts` | Each skill's `color`, `label`, and `shortDescription`. |
+| `src/components/animated-background.tsx` | Texture injection logic + Spline name mapping. |
+
+**To change an icon:**
+1. Drop a new SVG into `public/icons-keyboard/` with the same filename as the skill's `name` field (e.g. `react.svg`, `docker.svg`)
+2. Rebuild and deploy — done.
+
+**To change a keycap's display color:**
+Edit `color` in `src/data/constants.ts` for the corresponding skill.
+
+**To add a brand-new skill not in the Spline scene:**
+You must edit the original `.splinecode` file in Spline to add the keycap object first. 5 skills (`Three`, `stablediffusion`, `comfyui`, `cursor`, `aitools`) currently have no matching keycap in the scene and only appear as skill cards, not on the 3D keyboard.
+
+**Spline name mismatch?** If your `skill.name` doesn't match the Spline object name, update the `splineNameMap` in `animated-background.tsx`.
+
+Full details in [`KEYCAP-CUSTOMIZATION.md`](KEYCAP-CUSTOMIZATION.md).
+
 ---
 
 ## 🔌 Realtime Features (Optional)
@@ -155,7 +183,7 @@ The portfolio supports optional realtime features powered by a **separate backen
 These features activate automatically when the `NEXT_PUBLIC_WS_URL` environment variable is set. Without it, the portfolio works perfectly fine as a static site — no realtime features, no backend dependency.
 
 > [!NOTE]
-> The backend API is **not open source**. This is intentional! Too many people have cloned the portfolio and claimed they built it from scratch. The realtime server stays private to keep the live experience unique make make it standout.
+> The backend API is **not open source**. This is intentional! Too many people have cloned the portfolio and claimed they built it from scratch. The realtime server stays private to keep the live experience unique and make it standout.
 
 
 ---
@@ -173,14 +201,5 @@ This site is deployed on **Vercel**. To deploy your own:
 
 ---
 
-## 🤝 Contributing
-
-If you'd like to contribute or suggest improvements, feel free to open an issue or submit a pull request. All contributions are welcome!
-
 ---
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-If you use this portfolio, a credit or link back to the [original repo](https://github.com/Naresh-Khatri/3d-portfolio) would be much appreciated ❤️
