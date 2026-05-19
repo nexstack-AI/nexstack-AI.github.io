@@ -118,31 +118,11 @@ Other files you'll want to customize:
 
 ---
 
-## ⌨️ Updating the 3D Keyboard Skills
+## ⌨️ Customizing the 3D Keyboard Skills
 
-The 3D keyboard keycaps are baked into a Spline file. To update the skills displayed on the keyboard:
+The keyboard keycap icons and colors are fully customizable in code — no Spline membership required. The app injects custom SVG icons onto keycap surfaces at runtime by swapping texture data inside Spline's internal Three.js `NodeMaterial` uniforms.
 
-1. **Import** the `public/assets/skills-keyboard.spline` file into [Spline](https://spline.design/)
-2. **Unhide** the keycap objects you want to edit
-3. **Update** the logo images on each keycap to your new skill icons
-4. **Rename** each keycap object to match the skill's `name` field in `src/data/constants.ts` (e.g. `js`, `react`, `docker`)
-5. **Hide** all keycap objects again
-6. **Export** the scene and overwrite `public/assets/skills-keyboard.spline`
-
-After updating the Spline file, make sure `src/data/constants.ts` has matching entries for every skill on the keyboard:
-
-```ts
-// Each keycap object name in Spline must match a key in SKILLS
-export const SKILLS: Record<SkillNames, Skill> = {
-  js: { name: "js", label: "JavaScript", shortDescription: "...", ... },
-  react: { name: "react", label: "React", shortDescription: "...", ... },
-  // ... add/remove entries to match your keyboard
-};
-```
-
-The `SkillNames` enum, `SKILLS` record, and the Spline keycap names must all stay in sync for the keyboard interactions to work correctly.
-
-### 🎨 Alternative: Custom Keycap Icons & Colors (No Spline Membership Required)
+### Custom Keycap Icons & Colors
 
 If you don't have a Spline membership or prefer not to edit the `.splinecode` file, you can customize keycap icons and colors entirely in code:
 
