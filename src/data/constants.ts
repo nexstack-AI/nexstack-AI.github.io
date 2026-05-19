@@ -46,7 +46,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "JavaScript",
     shortDescription: "Production-ready",
     color: "#ec903a",
-    icon: "/icons/javascript-original.svg",
+    icon: "/icons-keyboard/js.svg",
   },
   [SkillNames.TS]: {
     id: 2,
@@ -54,7 +54,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "TypeScript",
     shortDescription: "Production-ready",
     color: "#007acc",
-    icon: "/icons/typescript-original.svg",
+    icon: "/icons-keyboard/ts.svg",
   },
   [SkillNames.HTML]: {
     id: 3,
@@ -62,7 +62,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "HTML5",
     shortDescription: "Production-ready",
     color: "#e34c26",
-    icon: "/icons/html5-original.svg",
+    icon: "/icons-keyboard/html.svg",
   },
   [SkillNames.CSS]: {
     id: 4,
@@ -70,7 +70,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "CSS3",
     shortDescription: "Production-ready",
     color: "#563d7c",
-    icon: "/icons/css3-original.svg",
+    icon: "/icons-keyboard/css.svg",
   },
   [SkillNames.REACT]: {
     id: 5,
@@ -78,7 +78,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "React",
     shortDescription: "Production-ready",
     color: "#61dafb",
-    icon: "/icons/react-original.svg",
+    icon: "/icons-keyboard/react.svg",
   },
   [SkillNames.VUE]: {
     id: 6,
@@ -86,7 +86,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "taro",
     shortDescription: "Production-ready",
     color: "#e74a2c",
-    icon: "/icons/taro-original.svg",
+    icon: "/icons-keyboard/taro.svg",
   },
   [SkillNames.NEXTJS]: {
     id: 7,
@@ -94,7 +94,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Vite / Webpack",
     shortDescription: "Production-ready",
     color: "#343434",
-    icon: "/icons/nextjs-original.svg",
+    icon: "/icons-keyboard/nextjs.svg",
   },
   [SkillNames.TAILWIND]: {
     id: 8,
@@ -102,7 +102,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Ant Design",
     shortDescription: "Production-ready",
     color: "#06b6d4",
-    icon: "/icons/tailwindcss-original.svg",
+    icon: "/icons-keyboard/tailwind.svg",
   },
   [SkillNames.NODEJS]: {
     id: 9,
@@ -110,7 +110,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Node.js",
     shortDescription: "Production-ready",
     color: "#3c873a",
-    icon: "/icons/nodejs-original.svg",
+    icon: "/icons-keyboard/nodejs.svg",
   },
   [SkillNames.EXPRESS]: {
     id: 10,
@@ -118,7 +118,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Express",
     shortDescription: "Production-ready",
     color: "#343434",
-    icon: "/icons/express-original.svg",
+    icon: "/icons-keyboard/express.svg",
   },
   [SkillNames.POSTGRES]: {
     id: 11,
@@ -126,7 +126,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Redux",
     shortDescription: "Production-ready",
     color: "#336791",
-    icon: "/icons/postgresql-original.svg",
+    icon: "/icons-keyboard/postgres.svg",
   },
   [SkillNames.MONGODB]: {
     id: 12,
@@ -134,7 +134,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "mongodb",
     shortDescription: "Production-ready",
     color: "#4db33d",
-    icon: "/icons/mongodb-original.svg",
+    icon: "/icons-keyboard/mongodb.svg",
   },
   [SkillNames.GIT]: {
     id: 13,
@@ -142,7 +142,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Git",
     shortDescription: "Production-ready",
     color: "#f05032",
-    icon: "/icons/git-original.svg",
+    icon: "/icons-keyboard/git.svg",
   },
   [SkillNames.GITHUB]: {
     id: 14,
@@ -150,7 +150,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: " Github",
     shortDescription: "Production-ready",
     color: "#343434",
-    icon: "/icons/github-original.svg",
+    icon: "/icons-keyboard/github.svg",
   },
   [SkillNames.PRETTIER]: {
     id: 15,
@@ -158,7 +158,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "prettier",
     shortDescription: "Production-ready",
     color: "#1a2b34",
-    icon: "/icons/prettier-original.svg",
+    icon: "/icons-keyboard/prettier.svg",
   },
   [SkillNames.NPM]: {
     id: 16,
@@ -166,7 +166,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "npm",
     shortDescription: "Production-ready",
     color: "#dc2d35",
-    icon: "/icons/npm-original-wordmark.svg",
+    icon: "/icons-keyboard/npm.svg",
   },
   [SkillNames.FIREBASE]: {
     id: 17,
@@ -174,7 +174,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "ECharts",
     shortDescription: "Production-ready",
     color: "#daad24",
-    icon: "/icons/googlecloud-original.svg",
+    icon: "/icons-keyboard/firebase.svg",
   },
   [SkillNames.WORDPRESS]: {
     id: 18,
@@ -182,7 +182,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "wordpress",
     shortDescription: "Production-ready",
     color: "#21759b",
-    icon: "/icons/wordpress-plain.svg",
+    icon: "/icons-keyboard/wordpress.svg",
   },
   [SkillNames.LINUX]: {
     id: 19,
@@ -190,7 +190,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "linux",
     shortDescription: "Working knowledge",
     color: "#343434",
-    icon: "/icons/linux-original.svg",
+    icon: "/icons-keyboard/linux.svg",
   },
   [SkillNames.DOCKER]: {
     id: 20,
@@ -198,7 +198,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Docker",
     shortDescription: "Production-ready",
     color: "#2496ed",
-    icon: "/icons/docker-original.svg",
+    icon: "/icons-keyboard/docker.svg",
   },
   [SkillNames.NGINX]: {
     id: 21,
@@ -206,7 +206,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "nginx",
     shortDescription: "Production-ready",
     color: "#008000",
-    icon: "/icons/nginx-original.svg",
+    icon: "/icons-keyboard/nginx.svg",
   },
   [SkillNames.AWS]: {
     id: 22,
@@ -214,7 +214,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "aws",
     shortDescription: "Production-ready",
     color: "#ec903a",
-    icon: "/icons/aws-original.svg",
+    icon: "/icons-keyboard/aws.svg",
   },
   [SkillNames.VIM]: {
     id: 23,
@@ -222,7 +222,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "canvas",
     shortDescription: "Working knowledge",
     color: "#019331",
-    icon: "/icons/vercel-original.svg",
+    icon: "/icons-keyboard/canvas.svg",
   },
   [SkillNames.VERCEL]: {
     id: 24,
@@ -230,7 +230,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "webGL",
     shortDescription: "Working knowledge",
     color: "#343434",
-    icon: "/icons/firebase-plain.svg",
+    icon: "/icons-keyboard/webGL.svg",
   },
   [SkillNames.GCP]: {
     id: 25,
@@ -238,7 +238,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Three.js",
     shortDescription: "Working knowledge",
     color: "#4285f4",
-    icon: "/icons/vim-original.svg",
+    icon: "/icons-keyboard/three.svg",
   },
   [SkillNames.STABLEDIFFUSION]: {
     id: 26,
@@ -246,7 +246,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Stable Diffusion",
     shortDescription: "Working knowledge",
     color: "#a855f7",
-    icon: "/icons/python-original.svg",
+    icon: "/icons-keyboard/stablediffusion.svg",
   },
   [SkillNames.COMFYUI]: {
     id: 27,
@@ -254,7 +254,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "ComfyUI",
     shortDescription: "Working knowledge",
     color: "#22c55e",
-    icon: "/icons/nodedotjs-original.svg",
+    icon: "/icons-keyboard/comfyui.svg",
   },
   [SkillNames.CURSOR]: {
     id: 28,
@@ -262,7 +262,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "cursor",
     shortDescription: "Hands-on expertise",
     color: "#6366f1",
-    icon: "/icons/vscode-original.svg",
+    icon: "/icons-keyboard/cursor.svg",
   },
   [SkillNames.AITOOLS]: {
     id: 29,
@@ -270,7 +270,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "AI Agent",
     shortDescription: "Hands-on expertise",
     color: "#f59e0b",
-    icon: "/icons/tensorflow-original.svg",
+    icon: "/icons-keyboard/aitools.svg",
   },
 };
 
