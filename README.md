@@ -179,3 +179,35 @@ This site is deployed on **Vercel**. To deploy your own:
 3. Add your environment variables in the Vercel dashboard
 4. Vercel handles the rest — automatic deployments on every push
 
+---
+
+## ⌨️ Alternative: Update Keycaps via Spline Editor
+
+If you have a Spline membership, you can also edit the keycap icons directly in the Spline editor:
+
+1. **Import** the `public/assets/skills-keyboard.spline` file into [Spline](https://spline.design/)
+2. **Unhide** the keycap objects you want to edit
+3. **Update** the logo images on each keycap to your new skill icons
+4. **Rename** each keycap object to match the skill's `name` field in `src/data/constants.ts` (e.g. `js`, `react`, `docker`)
+5. **Hide** all keycap objects again
+6. **Export** the scene and overwrite `public/assets/skills-keyboard.spline`
+
+After updating the Spline file, make sure `src/data/constants.ts` has matching entries for every skill on the keyboard:
+
+```ts
+export const SKILLS: Record<SkillNames, Skill> = {
+  js: { name: "js", label: "JavaScript", shortDescription: "...", ... },
+  react: { name: "react", label: "React", shortDescription: "...", ... },
+  // ... add/remove entries to match your keyboard
+};
+```
+
+The `SkillNames` enum, `SKILLS` record, and the Spline keycap names must all stay in sync for the keyboard interactions to work correctly.
+
+---
+
+## 📦 Repository
+
+- **This fork** — [nexstack-AI/nexstack-AI.github.io](https://github.com/nexstack-AI/nexstack-AI.github.io) (custom keycap method via code, updated skill labels & icons)
+- **Original** — [Naresh-Khatri/3d-portfolio](https://github.com/Naresh-Khatri/3d-portfolio) (original Spline-based approach)
+
