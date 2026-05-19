@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- HTML5 Canvas — a framed canvas with brush stroke -->
+  <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- canvas frame -->
+    <rect x="24" y="20" width="80" height="88" rx="4"/>
+    <!-- frame corner accents -->
+    <path d="M24 44h8M24 68h8M24 92h8M96 44h8M96 68h8M96 92h8"/>
+    <!-- brush stroke across canvas -->
+    <path d="M38 60 Q52 34 64 48 Q76 62 90 42" stroke-width="5" fill="none"/>
+    <!-- brush tool bottom right -->
+    <line x1="90" y1="68" x2="106" y2="84" stroke-width="4"/>
+    <circle cx="90" cy="68" r="6" fill="#ffffff"/>
+    <circle cx="106" cy="84" r="3" fill="#ffffff"/>
+  </g>
+</svg>

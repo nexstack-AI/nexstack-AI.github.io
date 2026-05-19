@@ -2,6 +2,7 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Application, SPEObject, SplineEvent } from "@splinetool/runtime";
 import gsap from "gsap";
+import * as THREE from "three";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 const Spline = React.lazy(() => import("@splinetool/react-spline"));
 import { Skill, SkillNames, SKILLS } from "@/data/constants";
@@ -36,30 +37,48 @@ const AnimatedBackground = () => {
   const [splineLoadFailed, setSplineLoadFailed] = useState(false);
   const router = useRouter();
 
+  const resolveSkill = (objectName: string, target?: any): Skill | null => {
+    // Direct match from SKILLS
+    const direct = SKILLS[objectName as SkillNames];
+    if (direct) return direct;
+    // Walk up parent chain to find matching skill
+    let node = target;
+    while (node?.parent) {
+      node = node.parent;
+      const match = SKILLS[node.name as SkillNames];
+      if (match) return match;
+    }
+    return null;
+  };
+
   // --- Event Handlers ---
 
   const handleMouseHover = (e: SplineEvent) => {
-    if (!splineApp || selectedSkillRef.current?.name === e.target.name) return;
+    if (!splineApp) return;
 
-    if (e.target.name === "body" || e.target.name === "platform") {
-      if (selectedSkillRef.current) playReleaseSound();
-      setSelectedSkill(null);
-      selectedSkillRef.current = null;
-      if (splineApp.getVariable("heading") && splineApp.getVariable("desc")) {
-        splineApp.setVariable("heading", "");
-        splineApp.setVariable("desc", "");
-      }
-    } else {
-      if (!selectedSkillRef.current || selectedSkillRef.current.name !== e.target.name) {
-        const skill = SKILLS[e.target.name as SkillNames];
-        if (skill) {
-          if (selectedSkillRef.current) playReleaseSound();
-          playPressSound();
-          setSelectedSkill(skill);
-          selectedSkillRef.current = skill;
+    const skill = resolveSkill(e.target.name, e.target);
+
+    if (!skill) {
+      if (e.target.name === "body" || e.target.name === "platform") {
+        if (selectedSkillRef.current) playReleaseSound();
+        setSelectedSkill(null);
+        selectedSkillRef.current = null;
+        if (splineApp.getVariable("heading") && splineApp.getVariable("desc")) {
+          splineApp.setVariable("heading", "");
+          splineApp.setVariable("desc", "");
         }
       }
+      return;
     }
+
+    // Same skill — skip
+    if (selectedSkillRef.current?.id === skill.id) return;
+
+    // Different skill — play transition sounds
+    if (selectedSkillRef.current) playReleaseSound();
+    playPressSound();
+    setSelectedSkill(skill);
+    selectedSkillRef.current = skill;
   };
 
   const handleSplineInteractions = () => {
@@ -83,7 +102,7 @@ const AnimatedBackground = () => {
     });
     splineApp.addEventListener("keyDown", (e) => {
       if (!splineApp || isInputFocused()) return;
-      const skill = SKILLS[e.target.name as SkillNames];
+      const skill = resolveSkill(e.target.name, e.target);
       if (skill) {
         playPressSound();
         setSelectedSkill(skill);
@@ -283,6 +302,85 @@ const AnimatedBackground = () => {
   }, [splineApp, splineLoadFailed]);
 
   // --- Effects ---
+
+  // Apply custom SVG icons to keycap legend meshes
+  useEffect(() => {
+    if (!splineApp) return;
+    const scene = (splineApp as any)._scene;
+    if (!scene?.isScene) return;
+
+    // Spline scene name → skill.name mapping (only 24 keycaps exist)
+    const splineNameMap: Record<string, string> = {
+      taro: "vue",     // skill taro → Spline keycap "vue"
+      canvas: "vim",   // skill canvas → Spline keycap "vim"
+      webGL: "vercel", // skill webGL → Spline keycap "vercel"
+    };
+
+    const skills = Object.values(SKILLS);
+
+    for (const skill of skills) {
+      const splineName = splineNameMap[skill.name] || skill.name;
+      const keycapGroup = scene.getObjectByName(splineName);
+      if (!keycapGroup) continue; // skill not in Spline scene (e.g. Three, stablediffusion, comfyui, cursor, aitools)
+
+      const hex = parseInt(skill.color.replace("#", ""), 16);
+
+      let legendMesh: any = null;
+      keycapGroup.traverse((node: any) => {
+        if (!legendMesh && node.isMesh && node.name === "legend") legendMesh = node;
+      });
+      if (!legendMesh) { console.log(`[TexSwap] ${skill.name}: no legend mesh found`); continue; }
+
+      const mat = legendMesh.material;
+      if (!mat?.uniforms) continue;
+
+      // Priority: nodeU0 (active legend texture) > any tex with image > first tex (aoMap)
+      let textureUniformKey: string | null = null;
+      for (const uKey of Object.keys(mat.uniforms)) {
+        const val = mat.uniforms[uKey].value;
+        if (!val?.isTexture) continue;
+        if (uKey === "nodeU0") { textureUniformKey = uKey; break; }
+        if (val.image && !textureUniformKey) textureUniformKey = uKey;
+      }
+      if (!textureUniformKey) {
+        for (const uKey of Object.keys(mat.uniforms)) {
+          if (mat.uniforms[uKey].value?.isTexture) { textureUniformKey = uKey; break; }
+        }
+      }
+      if (!textureUniformKey) continue;
+
+      // Brighten legend to white so icon shows at full intensity
+      const colorUni = mat.uniforms["nodeU9"]?.value;
+      if (colorUni?.isColor) { colorUni.r = 1; colorUni.g = 1; colorUni.b = 1; }
+
+      // Draw white icon on transparent canvas (no background — keycap color shows through)
+      const canvas = document.createElement("canvas");
+      canvas.width = 256; canvas.height = 256;
+      const ctx = canvas.getContext("2d")!;
+
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        // Convert colored icon to white silhouette via temp canvas
+        const tmp = document.createElement("canvas");
+        tmp.width = 256; tmp.height = 256;
+        const tctx = tmp.getContext("2d")!;
+        tctx.drawImage(img, 16, 16, 224, 224);
+        tctx.globalCompositeOperation = "source-in";
+        tctx.fillStyle = "#ffffff";
+        tctx.fillRect(0, 0, 256, 256);
+        // Draw white icon onto colored background
+        ctx.drawImage(tmp, 0, 0);
+
+        const tex = mat.uniforms[textureUniformKey!].value;
+        tex.image = canvas;
+        if (tex.source) tex.source.data = canvas;
+        tex.needsUpdate = true;
+      };
+      img.onerror = () => console.warn(`[TexSwap] ${skill.name}: failed to load icon`);
+      img.src = `/icons-keyboard/${skill.name}.svg`;
+    }
+  }, [splineApp, SKILLS]);
 
   // Initialize GSAP and Spline interactions
   useEffect(() => {
