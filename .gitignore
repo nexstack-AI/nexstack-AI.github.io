@@ -33,6 +33,7 @@ yarn-error.log*
 
 # resume (not in repo)
 public/resume.pdf
+src/app/resume/
 
 # typescript
 *.tsbuildinfo
