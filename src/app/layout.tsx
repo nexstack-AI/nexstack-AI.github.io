@@ -5,11 +5,9 @@ import { config } from "@/data/config";
 
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
-import Script from "next/script";
 import AppOverlays from "@/components/app-overlays";
 import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: config.title,
@@ -61,14 +59,8 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={[inter.variable, archivoBlack.variable, "font-display"].join(" ")} suppressHydrationWarning>
       <head>
-        <Script
-          defer
-          src={process.env.UMAMI_DOMAIN}
-          data-website-id={process.env.UMAMI_SITE_ID}
-        ></Script>
       </head>
       <body>
-        <Analytics />
         <Providers>
           <Header />
           {children}
