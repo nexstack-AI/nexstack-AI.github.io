@@ -1,0 +1,97 @@
+---
+title: "2026年GitHub最火开源AI项目Top 20：从OpenClaw到RAGFlow"
+publishedAt: "2026-03-05"
+summary: "盘点GitHub上2026年星标数最高的20个开源AI项目：OpenClaw以302k星称王，Agent执行、工作流编排、多模态生成、数据上下文四大方向全面崛起。"
+author: "东哥"
+tags: ["GitHub", "开源项目", "AI工具", "Agent", "工作流"]
+---
+
+# 2026年GitHub最火开源AI项目Top 20
+
+GitHub 的 AI 生态在过去一年发生了质变。2025 年的重点是"模型能不能打"，而 2026 年的风向已经转向 **"AI 怎么落地"**。
+
+OpenClaw 以 302K Stars 登顶之后，全球开发者把目光从模型能力转移到了 **Agent 执行、工作流编排、RAG 基础设施**这些真正让 AI 跑起来的工程问题上。
+
+---
+
+## 20 个项目全景
+
+| 排名 | 项目 | Stars | 方向 | 一句话 |
+|------|------|-------|------|--------|
+| 1 | **OpenClaw** | 302k | Agent执行 | 跨平台开源AI助手，接入WhatsApp/Telegram/Discord |
+| 2 | **AutoGPT** | 182k | Agent执行 | 经典自主Agent平台，任务分解+持续运行 |
+| 3 | **n8n** | 179k | 工作流编排 | 可视化工作流自动化，原生AI集成 |
+| 4 | **Stable Diffusion WebUI** | 162k | 多模态生成 | 经典SD Web界面 |
+| 5 | **prompts.chat** | 151k | 提示词资源 | 开源提示词社区 |
+| 6 | **Dify** | 132k | 工作流编排 | AI应用平台，Agent工作流+RAG+可观测性 |
+| 7 | **System Prompts合集** | 130k | 研究资料 | 各大AI产品System Prompt收集 |
+| 8 | **LangChain** | 129k | 工作流编排 | LLM应用和Agent框架 |
+| 9 | **Open WebUI** | 127k | 应用界面 | 自托管AI聊天界面，支持Ollama和OpenAI |
+| 10 | **Generative AI for Beginners** | 108k | 学习资源 | 微软出品生成式AI课程 |
+| 11 | **ComfyUI** | 106k | 多模态生成 | 节点式图像/视频/3D生成工作流 |
+| 12 | **Supabase** | 99k | 数据上下文 | Postgres平台，内建向量检索 |
+| 13 | **Gemini CLI** | 97k | Agent执行 | Google出品，终端中的AI Agent |
+| 14 | **Firecrawl** | 91k | 数据上下文 | 将网站转化为LLM可用的结构化数据 |
+| 15 | **LLMs from Scratch** | 88k | 学习资源 | 从零构建ChatGPT的教学项目 |
+| 16 | **awesome-mcp-servers** | 83k | 工具连接 | MCP Server目录 |
+| 17 | **Deep-Live-Cam** | 80k | 多模态生成 | 实时视频换脸 |
+| 18 | **Netdata** | 78k | AI运维 | 全栈可观测性，内建AI能力 |
+| 19 | **Spec Kit** | 76k | AI工程 | spec驱动的开发工具包 |
+| 20 | **RAGFlow** | 75k | 数据上下文 | RAG引擎，文档解析+检索增强+Agent |
+
+---
+
+## 四大趋势解读
+
+### Agent 执行：AI 不止是聊天
+
+OpenClaw（302K Stars）的爆发不是偶然。它证明了一个趋势：**用户不想要另一个聊天窗口，他们想要 AI 直接在他们已经在用的工具里工作。**
+
+OpenClaw、AutoGPT、Gemini CLI 的共同特征：
+- 跨平台、跨渠道执行
+- 不只是回答问题，而是**完成任务**
+- 从"对话式 AI"走向"行动式 AI"
+
+Gemini CLI 尤其值得关注——Google 直接把 Gemini 做进了终端，支持 MCP Server 和自定义 slash 命令，是开发者的日常利器。
+
+### 工作流编排：从原型到生产的基础设施
+
+n8n（179K）、Dify（132K）、LangChain（129K）分别代表了三种编排范式：
+
+- **n8n**：可视化 + 代码双模式，适合业务团队和开发团队协作
+- **Dify**：专注 AI 应用全生命周期，从 RAG 管道到 Agent 编排到可观测性
+- **LangChain**：开发者框架，灵活度最高，配合 LangGraph 能构建复杂的有状态 Agent
+
+如果你的团队在选型：
+- 快速原型 + 业务人员参与 → n8n
+- 构建可维护的 AI 应用产品 → Dify
+- 需要最大灵活性 + 自建复杂 Agent → LangChain + LangGraph
+
+### 数据与上下文：RAG 基础设施成熟
+
+Supabase、Firecrawl、RAGFlow 构成了 RAG 的三层栈：
+
+| 层 | 项目 | 解决的问题 |
+|----|------|-----------|
+| 数据获取 | Firecrawl | 把网站变成 LLM-ready 数据 |
+| 数据存储+检索 | Supabase | Postgres + pgvector 向量检索 |
+| 检索增强生成 | RAGFlow | 文档解析→语义分块→检索→Agent |
+
+这三个项目加起来，基本上覆盖了企业级 RAG 系统的全链路。
+
+### 多模态生成：从图像到视频的全面进化
+
+ComfyUI 以节点式工作流重新定义了 AI 图像/视频/3D 生成的方式。相比传统的 WebUI，它的优势在于：
+- 工作流可保存、复用、分享
+- 支持复杂的多步骤生成管线
+- 从图像扩展到视频、3D、音频
+
+---
+
+## 启示
+
+这 20 个项目背后是一个清晰的信号：**AI 已经从"实验室能力"进入"工程落地"阶段。**
+
+2025 年大家在讨论"哪个模型最强"，2026 年大家在讨论"怎么把 AI 接进工作流、怎么做 RAG、怎么让 Agent 真正跑起来"。
+
+对于开发者来说，现在是最好的时机——开源工具链已经足够成熟，你不需要从零开始构建一切。选对工具，组合使用，就能快速把 AI 能力嵌入你的产品中。

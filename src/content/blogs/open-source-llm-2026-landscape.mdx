@@ -1,0 +1,87 @@
+---
+title: "2026年开源大模型全景：Kimi K2.6、DeepSeek V4 Pro、GLM-5.1 三分天下"
+publishedAt: "2026-03-10"
+summary: "2026年开源大模型格局剧变：Kimi K2.6 登顶综合榜首，DeepSeek V4 Pro 称霸 Agent 编程，GLM-5.1 以纯 MIT 协议突围。一篇文章看清十大前沿模型的定位与选择。"
+author: "东哥"
+tags: ["开源大模型", "LLM", "DeepSeek", "Kimi", "GLM"]
+---
+
+# 2026年开源大模型全景：三分天下
+
+如果 2025 年是"开源追赶闭源"的一年，那 2026 年开局的信号已经非常明确：**开源大模型不再是替代品，而是首选方案。**
+
+截至 2026 年 5 月，仅一个半月内就有 **9 款重量级开源模型** 密集发布，覆盖从 1T 参数 MoE 到单 GPU 可跑的轻量模型。市面上最好的开源 LLM 离顶级闭源模型的差距，已经缩小到历史最低的 **3 分**（Artificial Analysis Intelligence Index 评分 54 vs 57）。
+
+---
+
+## Kimi K2.6：综合能力之王
+
+**Moonshot AI** 于 4 月 20 日发布的 Kimi K2.6 是目前综合最强的开源模型。
+
+- **架构**：1T 总参数 / 32B 激活的 MoE，256K 上下文窗口
+- **评分**：Artificial Analysis Intelligence Index **54 分**，在所有模型中排第 4，仅次于 Anthropic、Google、OpenAI 的最新旗舰
+- **亮点**：Agent 能力飞跃——GDPval-AA Elo 从 K2.5 的 1309 飙升至 **1520**，幻觉率从 65% 降至 39%
+- **编码**：SWE-Bench Pro 58.6%，超越 GPT-5.4（57.7%）和 Claude Opus 4.6（53.4%）
+- **协议**：Modified MIT，仅对超大规模部署（1 亿+ MAU 或月收入 $2000 万+）有归属条款
+
+**选它的理由**：追求最强综合能力 + 最强 Agent 编码 + 可接受多主机部署成本。
+
+---
+
+## DeepSeek V4 Pro：Agent 编程之王
+
+DeepSeek 在 4 月 24 日发布 V4 Pro 和 V4 Flash，双双向 MIT 协议开源。
+
+- **V4 Pro**：1.6T 总参数 / 49B 激活 MoE，1M 上下文
+- **Agent 第一**：GDPval-AA Agent 排行榜上 **1554 Elo**，开源模型第一
+- **编码**：SWE-Bench Verified **80.6%**，首次让开源模型在编码基准上追平闭源顶级
+- **性价比**：V4 Pro API 约 $1.74/$3.48 每百万 token，V4 Flash 仅 $0.14/$0.28
+
+Flash 版本以 Claude Sonnet 4.6 级别的性能配合极低价格，是成本敏感场景的最优解。
+
+**选它的理由**：Agent 编程是核心需求 + MIT 协议是硬要求 + 对成本敏感。
+
+---
+
+## GLM-5.1：最干净协议 + 纯国产算力
+
+Z.ai（原智谱 AI）的 GLM-5.1 是协议最干净的前沿模型。
+
+- **架构**：744B 总参数 / 40B 激活 MoE，200K 上下文
+- **协议**：**纯 MIT**，无任何使用条款限制——前沿梯队中最干净的协议
+- **评分**：AI Index **51 分**，GDPval-AA Agent **1535 Elo**，仅次于 DeepSeek V4 Pro
+- **重要细节**：**完全在华为昇腾芯片上训练**，零英伟达芯片参与
+
+**选它的理由**：协议合规是首要考量 + 想自托管且控制成本 + 国产算力自主可控。
+
+---
+
+## 其他值得关注的模型
+
+| 模型 | 参数量 | 协议 | 核心优势 |
+|------|--------|------|----------|
+| **MiMo-V2.5-Pro**（小米） | 1T/42B MoE | Apache-2.0 | 评分 54 并列第一，1M 上下文 |
+| **MiniMax-M2.7** | 230B/10B MoE | Apache-2.0 | 前沿级推理，激活参数最小 |
+| **Qwen3.6-27B**（阿里） | 27B 密集 | Apache-2.0 | 最佳小型密集编码模型 |
+| **Gemma 4**（Google） | 2B-31B | Apache-2.0 | 唯一可在笔记本上跑的前沿模型 |
+| **Llama 5**（Meta） | 600B+ | Llama 社区协议 | ~5M 超长上下文 |
+
+---
+
+## 选型速查
+
+- **综合最强** → Kimi K2.6 或 MiMo-V2.5-Pro
+- **Agent 编程** → DeepSeek V4 Pro
+- **协议最干净** → GLM-5.1（纯 MIT）
+- **成本最低** → MiniMax-M2.7 / DeepSeek V4 Flash
+- **超长上下文** → Llama 5
+- **单 GPU 部署** → Gemma 4 / Qwen3.6-27B
+- **OSI 协议硬要求** → DeepSeek V4、GLM-5.1、MiMo、MiniMax、Qwen3.6-27B、Gemma 4
+
+---
+
+## 这意味着什么
+
+六个月前，企业还在问"开源够不够好"。现在，问题变成了"**选哪个开源模型作为未来 12 个月的基建标准**"。
+
+开源大模型的黄金时代，已经来了。

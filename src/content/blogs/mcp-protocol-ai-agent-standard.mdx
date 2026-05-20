@@ -1,0 +1,112 @@
+---
+title: "MCP 协议：AI Agent 互联的新标准，从工具到基础设施"
+publishedAt: "2026-02-28"
+summary: "Model Context Protocol (MCP) 正以惊人速度成为 AI Agent 与外部工具连接的事实标准。本文解读 MCP 的核心设计、生态爆发的原因，以及它为何是 Agent 时代的 HTTP。"
+author: "东哥"
+tags: ["MCP", "AI Agent", "协议", "Anthropic", "开源"]
+---
+
+# MCP 协议：AI Agent 互联的新标准
+
+如果说 2025 年 AI 的主题是"模型能力"，那 2026 年的主题就是"**Agent 协作**"。而促成这一转变的核心协议，就是 **MCP（Model Context Protocol）**。
+
+---
+
+## 什么是 MCP？
+
+MCP 由 Anthropic 于 2024 年底提出，是一个开放的、标准化的协议，用于让 AI 模型（特别是 LLM）与外部工具、数据源和服务进行交互。
+
+用一句话概括：**MCP 就是 AI Agent 的 "HTTP"。**
+
+就像 HTTP 统一了浏览器与服务器的通信方式，MCP 统一了 LLM 与外部世界的连接方式。
+
+---
+
+## 核心架构
+
+MCP 采用经典的 **客户端-服务器** 架构：
+
+- **MCP Host**：AI 应用（如 Claude Desktop、Cursor、VS Code）
+- **MCP Client**：嵌入在 Host 中，管理与 Server 的连接
+- **MCP Server**：提供具体能力的服务（如文件系统访问、数据库查询、API 调用）
+
+每个 MCP Server 通过标准化的 JSON-RPC 暴露三类能力：
+
+| 能力类型 | 作用 | 示例 |
+|----------|------|------|
+| **Resources** | 暴露数据 | 文件内容、数据库记录、API 响应 |
+| **Tools** | 执行操作 | 创建文件、发送消息、调用 API |
+| **Prompts** | 预定义模板 | 代码审查模板、写作助手模板 |
+
+---
+
+## 2026 年生态爆发
+
+截至 2026 年 5 月，`awesome-mcp-servers` 仓库已收获 **82.7K Stars**，成为 GitHub 上 AI 领域增长最快的项目之一。
+
+### 几个代表性 MCP Server
+
+- **Firecrawl MCP**：将整个网站转化为 LLM 可用的结构化数据
+- **Supabase MCP**：让 Agent 直接操作 Postgres 数据库、执行向量检索
+- **Gemini CLI MCP**：Google 官方支持，在终端中接入 MCP 生态
+- **GitHub MCP**：让 Agent 读写仓库、管理 Issue 和 PR
+- **Filesystem MCP**：安全的本地文件系统访问
+
+### 已接入 MCP 的主流工具
+
+- Claude Desktop（原生支持）
+- Cursor IDE
+- VS Code / Cline
+- Continue.dev
+- n8n（工作流编排平台）
+- Dify（AI 应用平台）
+- LangChain（Agent 框架）
+
+---
+
+## 为什么 MCP 如此重要？
+
+### 1. 消除碎片化
+
+在 MCP 之前，每个 AI 工具都要单独实现与外部服务的连接——Claude Plugin、ChatGPT Plugin、Copilot Extension 各自为政。MCP 统一了这套接口。
+
+### 2. 降低 Agent 开发门槛
+
+开发者只需实现一个 MCP Server，就能让 **所有支持 MCP 的 AI 应用** 使用它。一次开发，到处运行。
+
+### 3. 安全性内建
+
+MCP 天然支持权限控制：用户可以在连接时批准或拒绝特定能力，Agent 无法绕过用户权限执行操作。
+
+### 4. 组合性
+
+多个 MCP Server 可以同时连接到一个 AI 应用，Agent 能自主决定调用哪个工具——就像微服务架构中的服务编排。
+
+---
+
+## 协议生态正在向企业级演进
+
+从 2025 年底到 2026 年初，MCP 的演进方向清晰可见：
+
+- **Streamable HTTP 传输**：替代旧的 SSE 方案，支持真正的双向通信
+- **OAuth 2.0 认证**：让 MCP Server 可以安全地接入企业身份系统
+- **服务发现**：正在讨论的标准，让 Agent 自动发现可用的 MCP 服务
+- **工具注释与结构化输出**：让 Agent 更精准地理解和调用工具
+
+---
+
+## 对开发者的启示
+
+**如果你正在构建 AI 应用，现在就应该考虑 MCP。**
+
+不一定是现在就接入，但架构设计上要为 MCP 留出空间。一旦 Agent 生态成熟（可能就在今年下半年），支持 MCP 的应用将获得巨大的生态杠杆——你的用户可以直接接入数百个已有工具，无需你逐一集成。
+
+开源模型的崛起 + MCP 的标准化，正在让 "AI 原生应用" 从概念走向现实。
+
+---
+
+## 参考资源
+
+- [MCP 官方文档](https://modelcontextprotocol.io)
+- [awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)
+- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
