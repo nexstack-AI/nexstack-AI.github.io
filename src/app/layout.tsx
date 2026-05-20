@@ -9,6 +9,7 @@ import Script from "next/script";
 import AppOverlays from "@/components/app-overlays";
 import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: config.title,
@@ -67,6 +68,7 @@ export default function RootLayout({
         ></Script>
       </head>
       <body>
+        <Analytics />
         <Providers>
           <Header />
           {children}
