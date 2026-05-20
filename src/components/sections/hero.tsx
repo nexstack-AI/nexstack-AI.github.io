@@ -115,8 +115,24 @@ const HeroSection = () => {
                 </div>
               </BlurIn>
               <div className="mt-8 flex flex-col gap-3 w-fit">
-                {/* 简历暂时隐藏 */}
                 <div className="md:self-start flex gap-3">
+                  <Tooltip delayDuration={300}>
+                    <TooltipTrigger asChild>
+                      <Link href={"/resume"}>
+                        <Button
+                          variant={"outline"}
+                          className="block w-full overflow-hidden"
+                        >
+                          <File className="w-4 h-4 mr-2" />
+                          Resume
+                          简历
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      <p>查看我的简历</p>
+                    </TooltipContent>
+                  </Tooltip>
                   <Tooltip delayDuration={300}>
                     <TooltipTrigger asChild>
                       <Link href={"#contact"}>
