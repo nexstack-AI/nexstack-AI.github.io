@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { motion } from "motion/react";
 import { Button } from "../ui/button";
-import { File, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
