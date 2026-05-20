@@ -119,12 +119,12 @@ const HeroSection = () => {
                     <TooltipTrigger asChild>
                       <Link href={"/resume"}>
                         <Button
-                          variant={"outline"}
-                          className="block w-full overflow-hidden"
+                          size="lg"
+                          className="relative group border-orange-500/40 text-orange-500 hover:text-white bg-transparent hover:bg-orange-500 overflow-hidden transition-all duration-300 shadow-sm shadow-orange-500/10 hover:shadow-md hover:shadow-orange-500/20"
                         >
-                          <File className="w-4 h-4 mr-2" />
-                          Resume
-                          简历
+                          <span className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <File className="w-4 h-4 mr-2 relative z-10" />
+                          <span className="relative z-10 font-medium">Resume 简历</span>
                         </Button>
                       </Link>
                     </TooltipTrigger>
