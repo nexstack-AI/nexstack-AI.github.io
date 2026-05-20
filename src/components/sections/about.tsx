@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import SectionWrapper from "../ui/section-wrapper";
 import { SectionHeader } from "./section-header";
 import { cn } from "@/lib/utils";
-import { Code2, Layers, Palette, Zap } from "lucide-react";
+import { Code2, Layers, Bot, Sparkles } from "lucide-react";
 
 const highlights = [
   {
@@ -18,14 +18,14 @@ const highlights = [
     desc: "PC · APP · 小程序统一代码库，85%+ 代码复用率，6年+ 稳定迭代",
   },
   {
-    icon: <Palette className="w-6 h-6" />,
-    title: "数据可视化",
-    desc: "ECharts 大屏看板独立交付，Canvas/WebGL 3D 渲染技术探索",
+    icon: <Bot className="w-6 h-6" />,
+    title: "AI 驱动开发",
+    desc: "Cursor + Agent + 多模型协作，AI 辅助编码、审查、测试，全链路开发效率倍增",
   },
   {
-    icon: <Zap className="w-6 h-6" />,
-    title: "工程化思维",
-    desc: "模块化 · 组件化 · 规范化，从 0 搭建前端工程体系，注重性能与可维护性",
+    icon: <Sparkles className="w-6 h-6" />,
+    title: "AI 视觉创作",
+    desc: "ComfyUI + Stable Diffusion 工作流，AI 图像生成与视觉内容创作",
   },
 ];
 
@@ -51,11 +51,13 @@ const AboutSection = () => {
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             13 年工作经验，10 年+ 前端开发经验。
             <br className="hidden md:block" />
-            专注于
+            深耕
             <span className="text-orange-500 font-semibold"> React + TypeScript + Taro </span>
             技术栈，
             <br className="hidden md:block" />
-            主导 30+ 大型项目，从需求分析到上线交付全流程独立负责。
+            主导 30+ 大型项目，全面向 AI 方向转型，
+            <br className="hidden md:block" />
+            运用 Cursor + Agent + 多模型协作大幅提升研发效能。
           </p>
         </motion.div>
 
