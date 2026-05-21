@@ -38,3 +38,15 @@ src/app/resume/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Spline runtime and third-party libraries
+public/boolean.js
+public/export-spline-to-glb.html
+public/gaussian-splat-compression.js
+public/howler.js
+public/navmesh.js
+public/opentype.js
+public/physics.js
+public/process.js
+public/spline-runtime.js
+public/ui.js
