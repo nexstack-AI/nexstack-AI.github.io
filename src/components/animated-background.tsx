@@ -1,10 +1,10 @@
 "use client";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState, useCallback } from "react";
 import { Application, SPEObject, SplineEvent } from "@splinetool/runtime";
 import gsap from "gsap";
 import * as THREE from "three";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-const Spline = React.lazy(() => import("@splinetool/react-spline"));
+import dynamic from "next/dynamic";
 import { Skill, SkillNames, SKILLS } from "@/data/constants";
 import { sleep } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -15,6 +15,26 @@ import { Section, getKeyboardState } from "./animated-background-config";
 import { useSounds } from "./realtime/hooks/use-sounds";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const SplineComponent = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+  loading: () => null,
+});
+
+const PRELOAD_ASSETS = [
+  "/assets/skills-keyboard.spline",
+];
+
+const preloadAssets = async () => {
+  const promises = PRELOAD_ASSETS.map((url) => {
+    return fetch(url, { cache: "force-cache" }).then((res) => {
+      if (!res.ok) {
+        console.warn(`Failed to preload ${url}`);
+      }
+    });
+  });
+  await Promise.allSettled(promises);
+};
 
 const AnimatedBackground = () => {
   const { isLoading, bypassLoading } = usePreloader();
@@ -35,7 +55,31 @@ const AnimatedBackground = () => {
 
   const [keyboardRevealed, setKeyboardRevealed] = useState(false);
   const [splineLoadFailed, setSplineLoadFailed] = useState(false);
+  const [assetsPreloaded, setAssetsPreloaded] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    let isMounted = true;
+    const preloadTimeout = setTimeout(() => {
+      if (isMounted) {
+        setAssetsPreloaded(true);
+        console.warn("Preload timeout exceeded, proceeding without preload");
+      }
+    }, 3000);
+
+    const preloadAndSetState = async () => {
+      await preloadAssets();
+      if (isMounted) {
+        clearTimeout(preloadTimeout);
+        setAssetsPreloaded(true);
+      }
+    };
+    preloadAndSetState();
+    return () => {
+      isMounted = false;
+      clearTimeout(preloadTimeout);
+    };
+  }, []);
 
   const resolveSkill = (objectName: string, target?: any): Skill | null => {
     // Direct match from SKILLS
@@ -537,8 +581,8 @@ const AnimatedBackground = () => {
         <div className="w-full h-full fixed bg-gradient-to-br from-gray-900 via-purple-900/60 to-gray-800" />
       )}
       <Suspense fallback={<div className="w-full h-full fixed bg-gradient-to-br from-gray-900 via-purple-900/60 to-gray-800" />}>
-        {!splineLoadFailed && (
-          <Spline
+        {!splineLoadFailed && assetsPreloaded && (
+          <SplineComponent
             className="w-full h-full fixed"
             ref={splineContainer}
             onLoad={(app: Application) => {

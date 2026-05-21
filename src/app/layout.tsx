@@ -59,6 +59,17 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={[inter.variable, archivoBlack.variable, "font-display"].join(" ")} suppressHydrationWarning>
       <head>
+        <link
+          rel="preload"
+          href="/assets/skills-keyboard.spline"
+          as="fetch"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://unpkg.com"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
         <Providers>
