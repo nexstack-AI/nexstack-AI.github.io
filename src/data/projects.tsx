@@ -424,5 +424,75 @@ const projects: Project[] = [
       );
     },
   },
+  {
+    id: "ai-agent",
+    category: "AI 个人项目",
+    title: "AI 智能运营 Agent",
+    src: "/assets/projects-screenshots/portfolio/landing.png",
+    screenshots: [],
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.react,
+        PROJECT_SKILLS.ts,
+      ],
+      backend: [],
+    },
+    github: "https://github.com/nexstack-AI",
+    live: "https://github.com/nexstack-AI",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            LLM Agent · 自动化运营 · 进行中
+          </TypographyP>
+          <TypographyP className="font-mono">
+            基于 LLM 架构的自动化运营工具，探索 AI 在内容策略、情报采集、数据监控等业务场景的落地应用，
+            替代低质灰产工具，构建安全合规的智能运营体系。
+          </TypographyP>
+          <TypographyH3 className="my-4 mt-8">核心模块</TypographyH3>
+          <ul className="list-disc ml-6 font-mono space-y-2">
+            <li>设计并实现 Agent 核心架构，涵盖情报采集、内容策略生成、安全风控等模块</li>
+            <li>集成 LLM API 实现智能内容分析与策略推荐，结合数据监控形成闭环运营</li>
+            <li>研究 Agent 验证系统、记忆机制、工具调用等核心能力</li>
+          </ul>
+        </div>
+      );
+    },
+  },
+  {
+    id: "local-ai",
+    category: "AI 个人项目",
+    title: "本地 AI 智能大脑",
+    src: "/assets/projects-screenshots/portfolio/project.png",
+    screenshots: [],
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.react,
+        PROJECT_SKILLS.ts,
+      ],
+      backend: [],
+    },
+    github: "https://github.com/nexstack-AI",
+    live: "https://github.com/nexstack-AI",
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono text-2xl text-center">
+            本地 LLM · Agent 进化 · 进行中
+          </TypographyP>
+          <TypographyP className="font-mono">
+            基于本地大模型的 AI 系统，探索多理论融合的验证引擎与 Agent 进化架构，
+            实现离线环境下的智能推理与自主学习能力。
+          </TypographyP>
+          <TypographyH3 className="my-4 mt-8">核心能力</TypographyH3>
+          <ul className="list-disc ml-6 font-mono space-y-2">
+            <li>搭建 Ollama 本地 LLM 推理环境（qwen2.5、deepseek-r1），开发 Web 端交互界面</li>
+            <li>设计 Agent 验证系统（Verified Brain）与进化架构，探索 AI 自主决策能力</li>
+            <li>开发语音 AI 应用，集成多理论验证引擎实现离线智能推理</li>
+          </ul>
+        </div>
+      );
+    },
+  },
 ];
 export default projects;
