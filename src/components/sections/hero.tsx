@@ -93,7 +93,7 @@ const HeroSection = () => {
                   >
                     A Full Stack Web Developer
                     <br />
-                    <span className="text-sm text-orange-500">全栈 Web 开发者 · 10年+ 经验</span>
+                    <span className="text-sm text-orange-500">全栈 Web 开发者 · 12年+ 经验</span>
                   </p>
                 </BlurIn>
               </div>
@@ -102,7 +102,7 @@ const HeroSection = () => {
                 <div className="flex gap-4 md:gap-6 mt-4 flex-wrap">
                   {[
                     { num: "30+", label: "大型项目" },
-                    { num: "10年+", label: "前端经验" },
+                    { num: "12年+", label: "前端经验" },
                     { num: "Taro", label: "核心框架" },
                     { num: "三端", label: "统一交付" },
                   ].map((stat) => (

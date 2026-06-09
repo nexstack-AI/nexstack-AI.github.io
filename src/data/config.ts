@@ -1,9 +1,9 @@
 const config = {
   title: "nexstack-AI",
   description: {
-    long: "nexstack-AI 的个人作品集，13年工作经验，10年+前端开发经验。精通 Taro + React + TypeScript 技术栈，擅长自定义 Hooks 封装、复杂业务逻辑抽象。主导 30+ 大型项目。",
+    long: "nexstack-AI 的个人作品集，12年工作经验，9年+ 前端开发经验。精通 Taro + React + TypeScript 技术栈，擅长自定义 Hooks 封装、复杂业务逻辑抽象。主导 30+ 大型项目。",
     short:
-      "nexstack-AI · 10年+ 经验 · Taro · React · TypeScript · ECharts",
+      "nexstack-AI · 12年经验 · Taro · React · TypeScript · ECharts",
   },
   keywords: [
     "nexstack-AI",
