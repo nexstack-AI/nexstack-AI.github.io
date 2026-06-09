@@ -222,16 +222,14 @@ const projects: Project[] = [
             保利楼盘 · 三端合一 · 稳定迭代 6 年+
           </TypographyP>
           <TypographyP className="font-mono">
-            云置业是公司核心产品，以保利楼盘为主的小程序项目。采用 Taro + React +
-            TypeScript 技术栈，实现 PC、APP、小程序三端合一，代码库庞大且持续迭代超过 6
-            年。深度参与核心页面研发、公共组件维护与性能优化，参与研发时间与工龄同步。
+            保利地产数字化营销平台，三端合一（PC + App + 微信小程序），涵盖直播看房、预约到访、老带新裂变、户型楼盘展示、在线支付等核心功能，稳定运行 6 年以上持续迭代，是公司核心盈利项目。
           </TypographyP>
           <TypographyH3 className="my-4 mt-8">技术亮点</TypographyH3>
           <ul className="list-disc ml-6 font-mono space-y-2">
-            <li>三端代码复用率达 85%+，大幅降低维护成本</li>
-            <li>自定义业务组件库，沉淀 50+ 可复用组件</li>
-            <li>性能优化：首屏加载时间优化 40%</li>
-            <li>TypeScript 全面覆盖，类型安全护航核心业务</li>
+            <li>主导 Taro + React + TypeScript + 自建 Hooks 工程化架构，降低 60%+ 跨端适配成本</li>
+            <li>深度参与 15+ 核心页面开发，主导封装 20+ 通用业务组件，团队复用率超 80%</li>
+            <li>小程序首屏加载优化、图片懒加载、分包加载，首屏加载时间缩短约 50%</li>
+            <li>集成直播模块、预约到访、老带新裂变等营销工具</li>
           </ul>
         </div>
       );
@@ -257,18 +255,17 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            ECharts 大屏 · 数据驱动 · 独立交付
+            ECharts 大屏 · 数据驱动 · 核心研发
           </TypographyP>
           <TypographyP className="font-mono">
-            数字化看板以 ECharts 和表格为主要展示形式，使用 Taro + React + ECharts 技术栈。
-            独立完成核心模块研发，涵盖多维度数据可视化、实时数据刷新、交互式图表等功能。
+            企业数字化数据看板，以 ECharts 图表与数据表格为核心，多维度展示营销数据指标与业务分析结果，为管理层提供实时数据决策支持。
           </TypographyP>
           <TypographyH3 className="my-4 mt-8">技术亮点</TypographyH3>
           <ul className="list-disc ml-6 font-mono space-y-2">
-            <li>ECharts 定制化图表组件封装，支持 10+ 图表类型</li>
-            <li>实时数据推送，WebSocket 长连接稳定运行</li>
-            <li>大屏自适应布局，兼容 1920×1080 至 4K 分辨率</li>
-            <li>核心模块独立研发，从零到交付全流程负责</li>
+            <li>基于 ECharts 实现 10+ 种可视化组件，支撑 15+ 项核心业务指标实时展示</li>
+            <li>封装 10+ 可复用图表组件，新看板开发周期从 5 天缩短至 2 天</li>
+            <li>大屏自适应布局，兼容不同分辨率投屏展示</li>
+            <li>Ant Design Table 虚拟滚动与多条件筛选，覆盖 5+ 业务线</li>
           </ul>
         </div>
       );
@@ -297,13 +294,12 @@ const projects: Project[] = [
             智慧营销 · 数据驱动决策
           </TypographyP>
           <TypographyP className="font-mono">
-            营销看板是智慧营销体系的核心数据展示平台。使用 Taro + React + ECharts
-            技术栈，独立完成项目交付。为业务团队提供实时营销数据洞察、转化漏斗分析、
-            用户行为追踪等关键功能。
+            营销看板是智慧营销体系的核心数据展示平台。使用 Taro + React + ECharts 技术栈，
+            负责首页核心页面与详情页研发，实现数据筛选、排序、导出等交互功能，覆盖 5 个以上业务线的数据分析需求。
           </TypographyP>
           <TypographyH3 className="my-4 mt-8">技术亮点</TypographyH3>
           <ul className="list-disc ml-6 font-mono space-y-2">
-            <li>多维度营销数据分析与可视化呈现</li>
+            <li>多维度营销数据分析与 ECharts 可视化呈现</li>
             <li>交互式数据筛选与钻取，支持自定义时间范围</li>
             <li>响应式设计，PC 端 + 移动端双端适配</li>
           </ul>
@@ -332,18 +328,18 @@ const projects: Project[] = [
       return (
         <div>
           <TypographyP className="font-mono text-2xl text-center">
-            保利高尔夫 · 带队研发 · 全流程管理
+            保利高尔夫 · 主管带队 · 全流程管理
           </TypographyP>
           <TypographyP className="font-mono">
-            保利高尔夫预约、支付及餐厅系统。由我带领项目团队，框架以 Taro + React +
-            TypeScript 搭建，公共组件以项目内部组件形式由组员共同研发。
+            保利高尔夫全栈项目，涵盖会员预约、在线支付、高端餐饮管理等核心业务闭环，
+            多端覆盖（PC 管理后台 + 小程序用户端），项目稳定运行 2 年零重大故障。
           </TypographyP>
           <TypographyH3 className="my-4 mt-8">我的角色</TypographyH3>
           <ul className="list-disc ml-6 font-mono space-y-2">
-            <li>项目技术负责人，带领团队完成全流程研发</li>
-            <li>架构设计：Taro + React + TypeScript 技术选型与框架搭建</li>
-            <li>核心模块开发：预约系统、支付集成、餐厅管理</li>
-            <li>公共组件抽象：推动组员沉淀可复用组件</li>
+            <li>主导前端架构设计，统筹 3-5 人团队协作，制定编码规范与组件标准</li>
+            <li>组织封装 15+ 公共组件，代码复用率提升 70%，多端一致性达 95%+</li>
+            <li>对接微信支付完整链路，开发球位预约与餐饮排期系统</li>
+            <li>处理并发预约等复杂逻辑，保障项目按时高质量交付</li>
           </ul>
         </div>
       );
